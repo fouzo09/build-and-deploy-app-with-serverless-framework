@@ -1,0 +1,73 @@
+service: tasks
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    TASKS_TABLE: tasks
+  iam:
+    role:
+      statements: 
+        - Effect: Allow
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: 'arn:aws:dynamodb:us-east-1:*:*'
+
+functions:
+  createTask:
+    handler: src/createTask.handler
+    name: CreateTask
+    events:
+      - httpApi:
+          path: /create
+          method: post
+  getTasks:
+    handler: src/getTasks.handler
+    name: GetTasks
+    events:
+      - httpApi:
+          path: /tasks
+          method: get
+  getTask:
+    handler: src/getTask.handler
+    name: GetTask
+    events:
+      - httpApi:
+          path: /task
+          method: get
+  removeTask:
+    handler: src/deleteTask.handler
+    name: RemoveTask
+    events:
+      - httpApi:
+          path: /remove
+          method: delete
+  updateTask:
+    handler: src/updateTask.handler
+    name: UpdateTask
+    events:
+      - httpApi:
+          path: /update
+          method: put
+resources:
+  Resources:
+    tasks:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: tasks
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
