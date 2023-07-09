@@ -17,7 +17,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - Clonez ce référentiel sur votre machine locale :
 
 ```bash
-  git clonehttps://github.com/fouzo09/nodejs-api-with-serverless-framework.git api-crud
+  git clone https://github.com/fouzo09/nodejs-api-with-serverless-framework.git api-crud
 ```
 
 - Accédez au répertoire du projet :
