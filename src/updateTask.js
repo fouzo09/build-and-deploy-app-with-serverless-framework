@@ -6,7 +6,7 @@ module.exports.handler = async (event) => {
 
     const body = JSON.parse(event.body);
 
-    const { id } = event.queryStringParameters;
+    const { id } = event.pathParameters;
     const {task, isValid, email} = body;
     
     const dynamoDb = new AWS.DynamoDB.DocumentClient();

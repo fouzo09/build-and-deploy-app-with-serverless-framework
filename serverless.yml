@@ -26,7 +26,7 @@ functions:
     name: CreateTask
     events:
       - httpApi:
-          path: /create
+          path: /tasks
           method: post
   getTasks:
     handler: src/getTasks.handler
@@ -40,21 +40,21 @@ functions:
     name: GetTask
     events:
       - httpApi:
-          path: /task
+          path: /tasks/{id}
           method: get
   removeTask:
     handler: src/deleteTask.handler
     name: RemoveTask
     events:
       - httpApi:
-          path: /remove
+          path: /tasks/{id}
           method: delete
   updateTask:
     handler: src/updateTask.handler
     name: UpdateTask
     events:
       - httpApi:
-          path: /update
+          path: /tasks/{id}
           method: put
 resources:
   Resources:
